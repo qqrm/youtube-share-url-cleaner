@@ -4,6 +4,10 @@
 
 ## Установка
 
+1. https://chromewebstore.google.com/detail/youtube-share-url-cleaner/gifcjmpeahfoijlbjbeocggnhplkdjcc
+
+или
+
 1. Склонируйте репозиторий.
 2. Откройте `chrome://extensions/`.
 3. Включите режим разработчика.
