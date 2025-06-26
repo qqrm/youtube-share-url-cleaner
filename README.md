@@ -1,10 +1,11 @@
 # YouTube Share URL Cleaner
 
-Расширение для Chrome, которое автоматически удаляет параметр `si` из ссылки при нажатии кнопки "Поделиться" на YouTube.
+Расширение для Chrome и Firefox, которое автоматически удаляет параметр `si` из ссылки при нажатии кнопки "Поделиться" на YouTube.
 
 ## Установка
 
 1. https://chromewebstore.google.com/detail/youtube-share-url-cleaner/gifcjmpeahfoijlbjbeocggnhplkdjcc
+2. https://addons.mozilla.org/firefox/addon/youtube-share-url-cleaner/
 
 или
 
