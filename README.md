@@ -23,3 +23,9 @@
 После:
 
 [https://youtu.be/dQw4w9WgXcQ](https://youtu.be/dQw4w9WgXcQ)
+
+## CI
+
+Проверки GitHub Actions выполняются только для pull request-ов от пользователя
+`QQRM`. Для запросов от других аккаунтов workflow сразу завершается без
+выполнения задач и помечается как неуспешный.

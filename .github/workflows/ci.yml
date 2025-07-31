@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+jobs:
+  reject:
+    if: ${{ github.event.pull_request.user.login != 'QQRM' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Reject untrusted PR
+        run: |
+          echo "Pull requests are only processed for user QQRM." >&2
+          exit 1
+
+  build:
+    if: ${{ github.event.pull_request.user.login == 'QQRM' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build extension
+        run: zip -r youtube-share-url-cleaner.zip . -x '*.git*' '*node_modules*' 'youtube-share-url-cleaner.zip' '*.DS_Store'
