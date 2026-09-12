@@ -1,0 +1,10 @@
+{
+  "summary": {
+    "en-US": "Удаляет параметр 'si' при использовании функции 'Поделиться' на YouTube."
+  },
+  "categories": ["privacy-security", "appearance", "social-communication"],
+  "version": {
+    "license": "MIT",
+    "approval_notes": "This extension removes the si query parameter from YouTube share URLs locally in the browser. It does not collect, store, or transmit data."
+  }
+}
