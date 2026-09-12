@@ -1,0 +1,43 @@
+name: Deploy Firefox Add-on
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Sign and submit to AMO (listed)
+        env:
+          AMO_API_KEY: ${{ secrets.JWT_ISSUER }}
+          AMO_API_SECRET: ${{ secrets.JWT_SECRET }}
+        run: |
+          npx --yes web-ext@9.4.0 sign \
+            --source-dir . \
+            --artifacts-dir web-ext-artifacts \
+            --api-key "$AMO_API_KEY" \
+            --api-secret "$AMO_API_SECRET" \
+            --channel listed \
+            --amo-metadata amo-metadata.json \
+            --approval-timeout 0 \
+            --timeout 900000
+
+      - name: Upload signed XPI
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-xpi
+          path: web-ext-artifacts/*.xpi
+          if-no-files-found: error
+          retention-days: 7
