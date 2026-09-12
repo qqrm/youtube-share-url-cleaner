@@ -1,7 +1,7 @@
 {
   "name": "YouTube Share URL Cleaner",
   "description": "Удаляет параметр 'si' при использовании функции 'Поделиться' на YouTube.",
-  "version": "1.6",
+  "version": "1.7",
   "manifest_version": 3,
   "permissions": [],
   "content_scripts": [
