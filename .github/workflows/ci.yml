@@ -19,5 +19,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Test share URL cleaning
+        run: node --test tests/subscription-share-regression.test.js
       - name: Build extension
         run: zip -r youtube-share-url-cleaner.zip . -x '*.git*' '*node_modules*' 'youtube-share-url-cleaner.zip' '*.DS_Store'

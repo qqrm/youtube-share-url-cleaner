@@ -1,6 +1,10 @@
 name: Deploy Firefox Add-on
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - manifest.json
   workflow_dispatch:
 
 permissions:
