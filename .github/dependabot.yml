@@ -1,0 +1,16 @@
+version: 2
+multi-ecosystem-groups:
+  maintenance:
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "12:00"
+      timezone: "Europe/Moscow"
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    patterns: ["*"]
+    multi-ecosystem-group: "maintenance"
+    cooldown:
+      default-days: 7
