@@ -138,3 +138,50 @@ test('starts cleaning when Share is opened long after the page loaded', () => {
 
   assert.equal(input.value, 'https://youtu.be/LkJ-9v-nUFc');
 });
+
+test('removes only si while preserving other query fields and the fragment', () => {
+  const base = 'https://youtu.be/LkJ-9v-nUFc';
+  const preservedQueries = [
+    't=37',
+    'v=LkJ-9v-nUFc&t=0&list=PL_abc-123&index=2',
+    'tag=first&tag=second&empty=&feature=shared',
+    'note=hello+world&payload=%26si%3Dkeep&si_like=retained',
+  ];
+
+  for (const preserved of preservedQueries) {
+    for (const fragment of ['', '#chapter-2']) {
+      const expected = `${base}?${preserved}${fragment}`;
+      for (const query of [
+        `si=first&${preserved}`,
+        `${preserved}&si=last`,
+        `si=first&${preserved}&si=last`,
+      ]) {
+        const harness = createHarness();
+        const original = `${base}?${query}${fragment}`;
+        const input = harness.addInput(original);
+
+        harness.dispatch('pointerdown', { target: new FakeElement('copy-button') });
+
+        assert.equal(input.value, expected, original);
+        assert.equal(input.defaultValue, expected, original);
+      }
+    }
+  }
+});
+
+test('leaves URLs without si and invalid input unchanged', () => {
+  for (const original of [
+    'https://youtu.be/LkJ-9v-nUFc?t=37&list=PL_abc-123#chapter-2',
+    'https://youtu.be/LkJ-9v-nUFc?SI=keep&si_like=keep&note=hello%20world',
+    'not a URL?si=keep',
+    '',
+  ]) {
+    const harness = createHarness();
+    const input = harness.addInput(original);
+
+    harness.dispatch('pointerdown', { target: new FakeElement('copy-button') });
+
+    assert.equal(input.value, original);
+    assert.equal(input.defaultValue, original);
+  }
+});
